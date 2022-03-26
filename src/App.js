@@ -13,7 +13,7 @@ export default function App() {
   /**
    * デプロイされたコントラクトのアドレスを保持する変数を作成
    */
-  const contractAddress = "0xA0cD6ab775c51502ccc081d5975C903F332f3716";
+  const contractAddress = "0x3bbe9F0c1505848f2AA6b1021da9D4871aBFd455";
   /**
    * ABIの内容を参照する変数を作成
    */
@@ -131,12 +131,26 @@ export default function App() {
         console.log("Retrieved total wave count...", count.toNumber());
         console.log("Signer:", signer);
 
+        let contractBalance = await provider.getBalance(wavePortalContract.address);
+        console.log("Contract balance:", ethers.utils.formatEther(contractBalance));
+
         const waveTxn = await wavePortalContract.wave(messageValue,{gasLimit:300000});
         console.log("Mining...", waveTxn.hash);
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);
         count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
+
+        let contractBalance_post = await provider.getBalance(wavePortalContract.address);
+        if (contractBalance_post < contractBalance){
+          console.log("User won ETH!");
+        } else {
+          console.log("User didn't win ETH.");
+        }
+        console.log(
+          "Contract balance after wave:",
+          ethers.utils.formatEther(contractBalance_post)
+        );
       } else {
         console.log("Ethereum object doesn't exist!");
       }
