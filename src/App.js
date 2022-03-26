@@ -13,7 +13,7 @@ export default function App() {
   /**
    * デプロイされたコントラクトのアドレスを保持する変数を作成
    */
-  const contractAddress = "0x3bbe9F0c1505848f2AA6b1021da9D4871aBFd455";
+  const contractAddress = "0x8d819e9f855Fc15ed761f262Fd9eb4210dC49f93";
   /**
    * ABIの内容を参照する変数を作成
    */
